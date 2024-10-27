@@ -1,0 +1,51 @@
+@media (prefers-color-scheme: light) {
+    :root {
+        --bg: white;
+        --text-color: black;
+        --list-bg: #d8dee9;
+        --item-bg: #eceff4;
+        --bar-bg: #eceff4;
+        --button-bg: #d8dee9;
+        --todo: #a3be8c;
+        --doing: #ebcb8b;
+        --done: #b48ead;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #4c566a;
+        --text-color: white;
+        --list-bg: #3b4252;
+        --item-bg: #434c5e;
+        --bar-bg: #2e3440;
+        --button-bg: #3b4252;
+        --todo: #a3be8c;
+        --doing: #ebcb8b;
+        --done: #b48ead;
+    }
+}
+
+.light-mode {
+    --bg: white;
+    --text-color: black;
+    --list-bg: #d8dee9;
+    --item-bg: #eceff4;
+    --bar-bg: #eceff4;
+    --button-bg: #d8dee9;
+    --todo: #a3be8c;
+    --doing: #ebcb8b;
+    --done: #b48ead;
+}
+
+.dark-mode {
+    --bg: #4c566a;
+    --text-color: white;
+    --list-bg: #3b4252;
+    --item-bg: #434c5e;
+    --bar-bg: #2e3440;
+    --button-bg: #3b4252;
+    --todo: #a3be8c;
+    --doing: #ebcb8b;
+    --done: #b48ead;
+}

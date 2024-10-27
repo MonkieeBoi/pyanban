@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pyanban</title>
+        <link href="/static/css/style.css?id=12345" rel="stylesheet">
+        <script src="/static/js/home.js?id=1234"></script>
+    </head>
+    <body>
+        <nav>
+            <h1>Home</h1>
+            <span>
+                <button onclick="toggle_dark()">🌙</button>
+                <a href="login">Login</a>
+            </span>
+        </nav>
+        <section id="main">
+            <ol class="list" id="todo-box">
+                <div class="list-title">
+                    <h2>To do</h2>
+                    <h2>+</h2>
+                </div>
+                <li class="list-item" id="item-1">
+                    <div class="item-left">
+                        <h3 class="item-text">Finish Kanban Board</h3>
+                        <h4 class="item-date">16/11/2024 13:00</h4>
+                        <h4 class="item-due">Due: loading...</h4>
+                    </div>
+                    <div class="item-right">
+                        <button class="arrow-button" onclick="move_right(this)">></button>
+                        <button class="arrow-button" onclick="move_left(this)"><</button>
+                        <img class="item-pfp" src="/static/images/rainbowpls.gif" alt="pfp">
+                    </div>
+                </li>
+            </ol>
+            <ol class="list" id="doing-box">
+                <div class="list-title">
+                    <h2>Doing</h2>
+                </div>
+            </ol>
+            <ol class="list" id="done-box">
+                <div class="list-title">
+                    <h2>Done</h2>
+                </div>
+            </ol>
+        </section>
+    </body>
+</html>
