@@ -1,10 +1,10 @@
 @media (prefers-color-scheme: light) {
     :root {
-        --bg: white;
+        --bg: #eceff4;
         --text-color: black;
         --list-bg: #d8dee9;
         --item-bg: #eceff4;
-        --bar-bg: #eceff4;
+        --bar-bg: #d8dee9;
         --button-bg: #d8dee9;
         --todo: #a3be8c;
         --doing: #ebcb8b;
@@ -27,11 +27,11 @@
 }
 
 .light-mode {
-    --bg: white;
+    --bg: #eceff4;
     --text-color: black;
     --list-bg: #d8dee9;
     --item-bg: #eceff4;
-    --bar-bg: #eceff4;
+    --bar-bg: #d8dee9;
     --button-bg: #d8dee9;
     --todo: #a3be8c;
     --doing: #ebcb8b;
