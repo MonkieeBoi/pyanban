@@ -1,0 +1,40 @@
+from json import dump, load, decoder
+from os.path import isfile
+
+
+def load_data(path) -> dict:
+    try:
+        with open(path) as f:
+            return load(f)
+    except (decoder.JSONDecodeError, FileNotFoundError, IOError):
+        return {"index": 0, "todo": {}, "doing": {}, "done": {}}
+
+
+def move_item(path, item_id, left):
+    data = load_data(path)
+    sfrom = ""
+    sto = ""
+    if (item_id in data["todo"]):
+        sfrom = "todo"
+        sto = "todo" if left else "doing"
+    elif (item_id in data["doing"]):
+        sfrom = "doing"
+        sto = "todo" if left else "done"
+    elif (item_id in data["done"]):
+        sfrom = "done"
+        sto = "doing" if left else "done"
+
+    if sfrom == sto:
+        return
+
+    data[sto][item_id] = data[sfrom].pop(item_id)
+    save_data(path, data)
+
+
+def add_item(path, section, text, due, owner):
+    pass
+
+
+def save_data(path, data):
+    with open(path, 'w') as f:
+        dump(data, f, indent=4)

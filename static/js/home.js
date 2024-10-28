@@ -21,7 +21,12 @@ function move_right(e) {
         default:
             return;
     }
-    parent.appendChild(item);
+    fetch(`/move/${item.id.split("-")[1]}/right`, {method: "POST"})
+        .then((res) => {
+            if (res.ok) {
+                parent.appendChild(item);
+            }
+        });
 }
 
 function move_left(e) {
@@ -39,7 +44,12 @@ function move_left(e) {
         default:
             return;
     }
-    parent.appendChild(item);
+    fetch("/move/1/left", {method: "POST"})
+        .then((res) => {
+            if (res.ok) {
+                parent.appendChild(item);
+            }
+        });
 }
 
 intervals = new Set();

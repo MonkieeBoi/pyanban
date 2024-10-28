@@ -29,6 +29,16 @@ nav {
     padding: 5px 20px;
 }
 
+#toggle_dark {
+    background: none;
+    border: none;
+    padding: 5px;
+}
+
+#toggle_dark:hover {
+    background: var(--button-bg);
+}
+
 #main {
     display: flex;
     align-items: center;
