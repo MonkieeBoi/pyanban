@@ -10,9 +10,14 @@
     <body>
         <nav>
             <h1>Home</h1>
-            <span>
+            <span id="bar-right">
                 <button id="toggle_dark" onclick="toggle_dark()">🌙</button>
-                <a href="login">Login</a>
+                % if user:
+                    <h3>${user}</h3>
+                    <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
+                % else:
+                    <a onclick="document.getElementById('login-popup').classList.toggle('hidden')">Log in</a>
+                % endif
             </span>
         </nav>
         <section id="main">
@@ -36,6 +41,18 @@
                 ${add_items(done)}
             </ol>
         </section>
+        <div class="hidden" id="login-popup" onclick="this.classList.toggle('hidden')">
+            <div id="login-box">
+                <h2>Log in</h2>
+                <form method="POST" action="/login">
+                    <input type="text" name="username" placeholder="Username" autofocus required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Log in">
+                </form>
+            </div>
+            <div class="hidden" id="signup-box">
+            </div>
+        </div>
     </body>
 </html>
 
@@ -48,9 +65,11 @@
                 <h4 class="item-due">Due: loading...</h4>
             </div>
             <div class="item-right">
-                <button class="arrow-button" onclick="move_right(this)">></button>
-                <button class="arrow-button" onclick="move_left(this)"><</button>
                 <img class="item-pfp" src="/static/images/pfps/${val['owner']}" alt="pfp">
+                % if user == val["owner"]:
+                    <button class="arrow-button" onclick="move_left(this)"><</button>
+                    <button class="arrow-button" onclick="move_right(this)">></button>
+                % endif
             </div>
         </li>
     % endfor

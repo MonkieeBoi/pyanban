@@ -6,7 +6,7 @@ def load_data(path) -> dict:
         with open(path) as f:
             return load(f)
     except (decoder.JSONDecodeError, FileNotFoundError, IOError):
-        return {"index": 0, "todo": {}, "doing": {}, "done": {}}
+        return {"index": 0, "todo": {}, "doing": {}, "done": {}, "users": {}}
 
 
 def move_item(path, item_id, left):
@@ -24,10 +24,11 @@ def move_item(path, item_id, left):
         sto = "doing" if left else "done"
 
     if sfrom == sto:
-        return
+        return sto
 
     data[sto][item_id] = data[sfrom].pop(item_id)
     save_data(path, data)
+    return sto
 
 
 def add_item(path, section, text, due, owner):

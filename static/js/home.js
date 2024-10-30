@@ -8,23 +8,12 @@ function toggle_dark() {
 
 function move_right(e) {
     let item = e.parentElement.parentElement;
-    let list = item.parentElement;
-    let parent;
 
-    switch (list.id) {
-        case "todo-box":
-            parent = document.getElementById("doing-box");
-            break;
-        case "doing-box":
-            parent = document.getElementById("done-box");
-            break;
-        default:
-            return;
-    }
     fetch(`/move/${item.id.split("-")[1]}/right`, {method: "POST"})
         .then((res) => {
+            let newParent = document.getElementById(`${res.statusText}-box`)
             if (res.ok) {
-                parent.appendChild(item);
+                newParent.appendChild(item);
             }
         });
 }
@@ -46,14 +35,20 @@ function move_left(e) {
     }
     fetch("/move/1/left", {method: "POST"})
         .then((res) => {
+            let newParent = document.getElementById(`${res.statusText}-box`)
             if (res.ok) {
-                parent.appendChild(item);
+                newParent.appendChild(item);
             }
         });
 }
 
+
 intervals = new Set();
 window.onload = () => {
+    document.getElementById("login-box").onclick = (event) => {
+        event.stopPropagation();
+    };
+
     document.querySelectorAll(".item-due").forEach(element => {
         interval = setInterval(() => {
             let dueDate = element.dataset.date;
@@ -69,7 +64,6 @@ window.onload = () => {
 
             let distance = dueDate - now;
             distance = Math.floor(distance / 1000);
-            console.log(distance);
 
             let days = Math.floor(distance / (60 * 60 * 24));
             let hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));

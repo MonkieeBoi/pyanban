@@ -29,6 +29,19 @@ nav {
     padding: 5px 20px;
 }
 
+.nav-pfp {
+    height: auto;
+    width: auto;
+    max-width: 30px;
+    max-height: 30px;
+}
+
+#bar-right {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
 #toggle_dark {
     background: none;
     border: none;
@@ -64,6 +77,7 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    margin-top: 5px;
 }
 
 .list {
@@ -72,8 +86,8 @@ nav {
     padding: 2px 20px;
     height: 85vh;
     width: 30vw;
-    /* max-width: 300px; */
-    min-width: 220px;
+    max-width: 600px;
+    min-width: 245px;
     display: inline-block;
     overflow: hidden;
     overflow-y: auto;
@@ -95,7 +109,7 @@ nav {
     position: relative;
     width: 50px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: space-between;
     align-items: center;
     gap: 2px;
@@ -114,4 +128,64 @@ nav {
     height: 100%;
     border: none;
     cursor: pointer;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#login-popup {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    left: 0;
+    top: 0;
+    display: flex;
+    background: var(--popup-bg);
+    justify-content: center;
+    overflow-x: hidden;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+#login-box {
+    height: 200px;
+    width: 260px;
+    background: var(--login-box-bg);
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: center;
+    justify-content: space-between;
+    text-align: center;
+    padding: 20px;
+}
+
+#login-box > form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    gap: 10px;
+}
+
+#login-box > form > input {
+    font-size: 16px;
+    padding: 10px;
+    border: none;
+    background-color: var(--form-bg);
+}
+
+#login-box > form > input::placeholder {
+    color: var(--form-placeholder-fg);
+}
+
+#login-box > form > input[type=submit] {
+    background-color: var(--login-button-bg);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+#login-box > form > input[type=submit]:hover {
+    background-color: var(--login-button-hover-bg);
 }
