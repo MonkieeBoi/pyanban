@@ -47,8 +47,10 @@ def home():
                     todos=data["todo"],
                     doing=data["doing"],
                     done=data["done"],
-                    user=request.session.get("username", ""),
-                    message=message)
+                    user=session.get("username", ""),
+                    message=message,
+                    pfp=data["users"].get(session.get("username", ""),
+                                          {"pfp": False})["pfp"])
 
 
 @post('/move/<id:int>/<direction>')

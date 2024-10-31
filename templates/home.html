@@ -22,7 +22,9 @@
                 <button id="toggle_dark" onclick="toggle_dark()">🌙</button>
                 % if user:
                     <h3>${user}</h3>
-                    <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
+                    % if pfp:
+                        <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
+                    % endif
                 % else:
                     <a onclick="show_popup('signup-box')">Sign Up</a>
                     <a onclick="show_popup('login-box')">Log in</a>
