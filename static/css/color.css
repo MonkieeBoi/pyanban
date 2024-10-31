@@ -5,10 +5,11 @@
         --list-bg: #d8dee9;
         --item-bg: #eceff4;
         --bar-bg: #d8dee9;
-        --button-bg: #d8dee9;
+        --button-bg: #eceff4;
         --todo: #a3be8c;
         --doing: #ebcb8b;
         --done: #b48ead;
+        --message-bg: #bf616a;
         --popup-bg: #d8dee9;
         --login-box-bg: #eceff4;
         --form-bg: #eceff4;
@@ -29,6 +30,7 @@
         --todo: #a3be8c;
         --doing: #ebcb8b;
         --done: #b48ead;
+        --message-bg: #bf616a;
         --popup-bg: #2e3440b3;
         --login-box-bg: #3b4252;
         --form-bg: #434c5e;
@@ -44,11 +46,12 @@
     --list-bg: #d8dee9;
     --item-bg: #eceff4;
     --bar-bg: #d8dee9;
-    --button-bg: #d8dee9;
+    --button-bg: #eceff4;
     --todo: #a3be8c;
     --doing: #ebcb8b;
     --done: #b48ead;
     --popup-bg: #d8dee9b3;
+    --message-bg: #bf616a;
     --login-box-bg: #eceff4;
     --form-bg: #d8dee9;
     --form-placeholder-fg: #434c5eb9;
@@ -67,6 +70,7 @@
     --doing: #ebcb8b;
     --done: #b48ead;
     --popup-bg: #2e3440b3;
+    --message-bg: #bf616a;
     --login-box-bg: #3b4252;
     --form-bg: #434c5e;
     --form-placeholder-fg: #d8dee9b9;

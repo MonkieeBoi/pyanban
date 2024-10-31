@@ -25,7 +25,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     flex-direction: row;
-    margin: 0 0 20px 0;
+    margin: 0;
     border-radius: 0;
     padding: 5px 20px;
 }
@@ -41,7 +41,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 10px;
+    gap: 5px;
 }
 
 #toggle_dark {
@@ -52,6 +52,23 @@ nav {
 
 #toggle_dark:hover {
     background: var(--button-bg);
+}
+
+#message {
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+    background: var(--message-bg);
+    text-align: center;
+    font-weight: 700;
+}
+
+#message > button {
+    background: none;
+    border: none;
+    font-weight: 900;
+    cursor: pointer;
+    border-radius: 0;
 }
 
 #main {

@@ -4,6 +4,11 @@ function toggle_dark() {
     } else {
         document.body.classList.toggle("dark-mode");
     }
+    if (document.body.classList.contains("light-mode")) {
+        document.getElementById("toggle_dark").textContent = "☀️"
+    } else {
+        document.getElementById("toggle_dark").textContent = "🌙"
+    }
 }
 
 function move_right(e) {
@@ -21,7 +26,6 @@ function move_right(e) {
 function move_left(e) {
     let item = e.parentElement.parentElement;
     let list = item.parentElement;
-    let parent;
 
     switch (list.id) {
         case "doing-box":
@@ -44,11 +48,8 @@ function move_left(e) {
 
 
 intervals = new Set();
-window.onload = () => {
-    document.getElementById("login-box").onclick = (event) => {
-        event.stopPropagation();
-    };
 
+function add_countdown() {
     document.querySelectorAll(".item-due").forEach(element => {
         interval = setInterval(() => {
             let dueDate = element.dataset.date;
@@ -82,6 +83,18 @@ window.onload = () => {
         }, 1000);
         intervals.add(interval);
     });
+}
+
+window.onload = () => {
+    document.getElementById("login-box").onclick = (event) => {
+        event.stopPropagation();
+    };
+
+    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
+        document.getElementById("toggle_dark").textContent = "☀️"
+    }
+
+    add_countdown();
 }
 
 function clear_intervals() {

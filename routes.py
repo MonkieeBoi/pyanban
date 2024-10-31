@@ -3,6 +3,7 @@ from os import environ
 from data import load_data, move_item
 from beaker.middleware import SessionMiddleware
 from dotenv import load_dotenv
+from hashlib import sha512
 import bottle
 from bottle import (run,
                     static_file,
@@ -36,12 +37,16 @@ def setup_request():
 
 @route('/')
 def home():
+    session = request.session
     data = load_data(data_path)
+    message = session.get("message", "")
+    session["message"] = ""
     return template("templates/home.html",
                     todos=data["todo"],
                     doing=data["doing"],
                     done=data["done"],
-                    user=request.session.get("username", ""))
+                    user=request.session.get("username", ""),
+                    message=message)
 
 
 @post('/move/<id:int>/<direction>')
@@ -53,7 +58,20 @@ def move_request(id, direction):
 @post('/login')
 def login():
     username = request.forms.get("username")
-    password = request.forms.get("password")
+    password = sha512(request.forms.get("password").encode())
+    password = password.hexdigest()
+    print(password)
+
+    users = load_data(data_path)["users"]
+
+    if username not in users:
+        request.session["message"] = "User does not exist"
+        return redirect("/")
+
+    if users[username]["password"] != password:
+        request.session["message"] = "Wrong password"
+        return redirect("/")
+
     request.session["username"] = username
     return redirect("/")
 

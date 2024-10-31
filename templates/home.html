@@ -5,9 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Pyanban</title>
         <link href="/static/css/style.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src="/static/js/home.js"></script>
     </head>
     <body>
+        % if message != "":
+            <div id="message">
+                <div></div>
+                ${message}
+                <button type="button" onclick="document.getElementById('message').remove()">X</button>
+            </div>
+        % endif
         <nav>
             <h1>Home</h1>
             <span id="bar-right">
