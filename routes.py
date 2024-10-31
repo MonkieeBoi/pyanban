@@ -1,6 +1,6 @@
 from sys import argv
 from os import environ
-from data import load_data, move_item, add_user
+from data import load_data, move_item, add_user, add_item
 from beaker.middleware import SessionMiddleware
 from dotenv import load_dotenv
 from hashlib import sha512
@@ -55,7 +55,19 @@ def home():
 
 @post('/move/<id:int>/<direction>')
 def move_request(id, direction):
-    to = move_item(data_path, str(id), direction == "left")
+    id = str(id)
+    data = load_data(data_path)
+    item = (data["todo"].get(id, None)
+            or data["doing"].get(id, None)
+            or data["done"].get(id, None))
+    if not item:
+        request.session["message"] = "Item doesn't exist"
+        redirect("/")
+    if item["owner"] != request.session.get("username", ""):
+        request.session["message"] = "Not yours don't touch"
+        redirect("/")
+
+    to = move_item(data_path, id, direction == "left")
     response.status = "200 " + to
 
 
@@ -77,6 +89,22 @@ def login():
 
     request.session["username"] = username
     return redirect("/")
+
+
+@post('/addtask')
+def addtask():
+    if "username" not in request.session:
+        request.session["message"] = "Not logged in"
+        return redirect('/')
+
+    text = request.forms.get("description")
+    date = request.forms.get("date")
+    time = request.forms.get("time")
+    add_item(data_path, "todo", text,
+             ("/".join(date.split("-")[::-1]) + " " + time),
+             request.session["username"])
+
+    return redirect('/')
 
 
 @post('/signup')

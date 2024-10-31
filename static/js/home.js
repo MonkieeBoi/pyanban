@@ -25,19 +25,8 @@ function move_right(e) {
 
 function move_left(e) {
     let item = e.parentElement.parentElement;
-    let list = item.parentElement;
 
-    switch (list.id) {
-        case "doing-box":
-            parent = document.getElementById("todo-box");
-            break;
-        case "done-box":
-            parent = document.getElementById("doing-box");
-            break;
-        default:
-            return;
-    }
-    fetch("/move/1/left", {method: "POST"})
+    fetch(`/move/${item.id.split("-")[1]}/left`, {method: "POST"})
         .then((res) => {
             let newParent = document.getElementById(`${res.statusText}-box`)
             if (res.ok) {
@@ -52,6 +41,11 @@ intervals = new Set();
 function add_countdown() {
     document.querySelectorAll(".item-due").forEach(element => {
         interval = setInterval(() => {
+            if (element.parentElement.parentElement.parentElement.id == "done-box") {
+                element.innerHTML = "Due: Done";
+                return;
+            }
+
             let dueDate = element.dataset.date;
             if (!("date" in element.dataset)) {
                 let date, time;
@@ -86,13 +80,11 @@ function add_countdown() {
 }
 
 window.onload = () => {
-    document.getElementById("login-box").onclick = (event) => {
-        event.stopPropagation();
-    };
-
-    document.getElementById("signup-box").onclick = (event) => {
-        event.stopPropagation();
-    };
+    document.getElementById("popup").childNodes.forEach((child) => {
+        child.onclick = (event) => {
+            event.stopPropagation();
+        };
+    })
 
     if (window.matchMedia("(prefers-color-scheme: light)").matches) {
         document.getElementById("toggle_dark").textContent = "☀️"

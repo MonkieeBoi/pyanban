@@ -35,7 +35,7 @@ def add_item(path, section, text, due, owner):
     data = load_data(path)
     item = {"text": text, "date": due, "owner": owner}
     data["index"] += 1
-    data["section"][data["index"]] = item
+    data[section][data["index"]] = item
     save_data(path, data)
 
 

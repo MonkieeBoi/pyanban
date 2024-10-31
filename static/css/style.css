@@ -41,7 +41,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 5px;
+    gap: 7px;
 }
 
 #toggle_dark {
@@ -167,8 +167,8 @@ nav {
     box-sizing: border-box;
 }
 
-#login-box, #signup-box {
-    height: 200px;
+#login-box, #signup-box, #add-item-box {
+    height: 270px;
     width: 260px;
     background: var(--login-box-bg);
     margin: auto;

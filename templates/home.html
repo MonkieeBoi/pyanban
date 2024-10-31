@@ -35,7 +35,7 @@
             <ol class="list" id="todo-box">
                 <div class="list-title">
                     <h2>To do</h2>
-                    <h2>+</h2>
+                    <h2 id="add_button" onclick="document.getElementById('popup').classList.toggle('hidden')">+</h2>
                 </div>
                 ${add_items(todos)}
             </ol>
@@ -53,22 +53,34 @@
             </ol>
         </section>
         <div class="hidden" id="popup" onclick="this.classList.toggle('hidden')">
-            <div id="login-box">
-                <h2>Log in</h2>
-                <form method="POST" action="/login">
-                    <input type="text" name="username" placeholder="Username" autofocus required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Log in">
-                </form>
-            </div>
-            <div class="hidden" id="signup-box">
-                <h2>Sign Up</h2>
-                <form method="POST" action="/signup">
-                    <input type="text" name="username" placeholder="Username" autofocus required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Sign Up">
-                </form>
-            </div>
+            % if not user:
+                <div id="login-box">
+                    <h2>Log in</h2>
+                    <form method="POST" action="/login">
+                        <input type="text" name="username" placeholder="Username" autofocus required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="submit" value="Log in">
+                    </form>
+                </div>
+                <div class="hidden" id="signup-box">
+                    <h2>Sign Up</h2>
+                    <form method="POST" action="/signup">
+                        <input type="text" name="username" placeholder="Username" autofocus required>
+                        <input type="password" name="password" placeholder="Password" required>
+                        <input type="submit" value="Sign Up">
+                    </form>
+                </div>
+            % else:
+                <div id="add-item-box">
+                    <h2>Add Task</h2>
+                    <form method="POST" action="/addtask">
+                        <input type="text" name="description" placeholder="Description of task" autofocus required>
+                        <input type="date" name="date" required>
+                        <input type="time" name="time" value="23:59" required>
+                        <input type="submit" value="Add">
+                    </form>
+                </div>
+            % endif
         </div>
     </body>
 </html>
