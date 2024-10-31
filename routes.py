@@ -1,46 +1,69 @@
 from sys import argv
+from os import environ
 from data import load_data, move_item
-from bottle import (Bottle,
-                    run,
+from beaker.middleware import SessionMiddleware
+from dotenv import load_dotenv
+import bottle
+from bottle import (run,
                     static_file,
                     response,
                     request,
                     redirect,
+                    route,
+                    post,
+                    error,
+                    hook,
                     mako_template as template)
 
-app = Bottle()
+load_dotenv()
+
+session_opts = {
+    "session.type": "cookie",
+    "session.auto": True,
+    "session.validate_key": environ["VALIDATE_KEY"],
+    "session.encrypt_key": environ["ENCRYPT_KEY"],
+    "session.key": "session",
+    "session.crypto_type": "cryptography"
+}
+
+app = SessionMiddleware(bottle.app(), session_opts)
 
 
-@app.route('/')
+@hook('before_request')
+def setup_request():
+    request.session = request.environ['beaker.session']
+
+
+@route('/')
 def home():
     data = load_data(data_path)
     return template("templates/home.html",
                     todos=data["todo"],
                     doing=data["doing"],
                     done=data["done"],
-                    user="")
+                    user=request.session.get("username", ""))
 
 
-@app.post('/move/<id:int>/<direction>')
+@post('/move/<id:int>/<direction>')
 def move_request(id, direction):
     to = move_item(data_path, str(id), direction == "left")
     response.status = "200 " + to
 
 
-@app.post('/login')
+@post('/login')
 def login():
     username = request.forms.get("username")
     password = request.forms.get("password")
-    print(username, password)
+    request.session["username"] = username
     return redirect("/")
 
 
-@app.route('/static/<filepath:path>')
+@route('/static/<filepath:path>')
 def server_static(filepath):
     return static_file(filepath, "./static")
 
 
-@app.error(404)
+@error(404)
 def error404(error):
     return template("templates/error404.html")
 

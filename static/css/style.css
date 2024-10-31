@@ -3,6 +3,7 @@
 * {
     border-radius: 5px;
     color: var(--text-color);
+    font-family: sans-serif;
 }
 
 h1 {
@@ -40,6 +41,7 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
+    gap: 10px;
 }
 
 #toggle_dark {
@@ -167,6 +169,7 @@ nav {
     flex-direction: column;
     align-content: center;
     gap: 10px;
+    width: 90%;
 }
 
 #login-box > form > input {
