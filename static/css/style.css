@@ -153,7 +153,7 @@ nav {
     display: none !important;
 }
 
-#login-popup {
+#popup {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -167,7 +167,7 @@ nav {
     box-sizing: border-box;
 }
 
-#login-box {
+#login-box, #signup-box {
     height: 200px;
     width: 260px;
     background: var(--login-box-bg);
@@ -181,7 +181,7 @@ nav {
     padding: 20px;
 }
 
-#login-box > form {
+#popup > div > form {
     display: flex;
     flex-direction: column;
     align-content: center;
@@ -189,23 +189,23 @@ nav {
     width: 90%;
 }
 
-#login-box > form > input {
+#popup > div > form > input {
     font-size: 16px;
     padding: 10px;
     border: none;
     background-color: var(--form-bg);
 }
 
-#login-box > form > input::placeholder {
+#popup > div > form > input::placeholder {
     color: var(--form-placeholder-fg);
 }
 
-#login-box > form > input[type=submit] {
+#popup > div > form > input[type=submit] {
     background-color: var(--login-button-bg);
     cursor: pointer;
     font-weight: 600;
 }
 
-#login-box > form > input[type=submit]:hover {
+#popup > div > form > input[type=submit]:hover {
     background-color: var(--login-button-hover-bg);
 }

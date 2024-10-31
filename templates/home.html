@@ -24,7 +24,8 @@
                     <h3>${user}</h3>
                     <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
                 % else:
-                    <a onclick="document.getElementById('login-popup').classList.toggle('hidden')">Log in</a>
+                    <a onclick="show_popup('signup-box')">Sign Up</a>
+                    <a onclick="show_popup('login-box')">Log in</a>
                 % endif
             </span>
         </nav>
@@ -49,7 +50,7 @@
                 ${add_items(done)}
             </ol>
         </section>
-        <div class="hidden" id="login-popup" onclick="this.classList.toggle('hidden')">
+        <div class="hidden" id="popup" onclick="this.classList.toggle('hidden')">
             <div id="login-box">
                 <h2>Log in</h2>
                 <form method="POST" action="/login">
@@ -59,6 +60,12 @@
                 </form>
             </div>
             <div class="hidden" id="signup-box">
+                <h2>Sign Up</h2>
+                <form method="POST" action="/signup">
+                    <input type="text" name="username" placeholder="Username" autofocus required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <input type="submit" value="Sign Up">
+                </form>
             </div>
         </div>
     </body>

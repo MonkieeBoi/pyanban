@@ -39,6 +39,14 @@ def add_item(path, section, text, due, owner):
     save_data(path, data)
 
 
+def add_user(path, username, password):
+    data = load_data(path)
+    if username in data["users"]:
+        return
+    data["users"][username] = {"password": password}
+    save_data(path, data)
+
+
 def save_data(path, data):
     with open(path, 'w') as f:
         dump(data, f, indent=4)

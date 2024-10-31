@@ -90,6 +90,10 @@ window.onload = () => {
         event.stopPropagation();
     };
 
+    document.getElementById("signup-box").onclick = (event) => {
+        event.stopPropagation();
+    };
+
     if (window.matchMedia("(prefers-color-scheme: light)").matches) {
         document.getElementById("toggle_dark").textContent = "☀️"
     }
@@ -102,4 +106,12 @@ function clear_intervals() {
         intervals.delete(id);
         clearInterval(id);
     }
+}
+
+function show_popup(id) {
+    if (document.getElementById(id).classList.contains("hidden")) {
+        document.getElementById('login-box').classList.toggle('hidden')
+        document.getElementById("signup-box").classList.toggle("hidden")
+    }
+    document.getElementById('popup').classList.toggle('hidden')
 }

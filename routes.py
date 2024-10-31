@@ -1,6 +1,6 @@
 from sys import argv
 from os import environ
-from data import load_data, move_item
+from data import load_data, move_item, add_user
 from beaker.middleware import SessionMiddleware
 from dotenv import load_dotenv
 from hashlib import sha512
@@ -41,6 +41,8 @@ def home():
     data = load_data(data_path)
     message = session.get("message", "")
     session["message"] = ""
+    if session.get("username", "") not in data["users"]:
+        session["username"] = ""
     return template("templates/home.html",
                     todos=data["todo"],
                     doing=data["doing"],
@@ -60,7 +62,6 @@ def login():
     username = request.forms.get("username")
     password = sha512(request.forms.get("password").encode())
     password = password.hexdigest()
-    print(password)
 
     users = load_data(data_path)["users"]
 
@@ -73,6 +74,23 @@ def login():
         return redirect("/")
 
     request.session["username"] = username
+    return redirect("/")
+
+
+@post('/signup')
+def signup():
+    username = request.forms.get("username")
+    password = sha512(request.forms.get("password").encode())
+    password = password.hexdigest()
+
+    users = load_data(data_path)["users"]
+
+    if username in users:
+        request.session["message"] = "Username has been taken"
+    else:
+        request.session["username"] = username
+        add_user(data_path, username, password)
+
     return redirect("/")
 
 
