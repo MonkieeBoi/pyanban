@@ -43,7 +43,7 @@ def add_user(path, username, password):
     data = load_data(path)
     if username in data["users"]:
         return
-    data["users"][username] = {"password": password, "pfp": False}
+    data["users"][username] = {"password": password}
     save_data(path, data)
 
 

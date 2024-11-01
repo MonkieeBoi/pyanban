@@ -1,4 +1,3 @@
-from sys import argv
 from os import environ
 from data import load_data, move_item, add_user, add_item
 from beaker.middleware import SessionMiddleware
@@ -18,16 +17,7 @@ from bottle import (run,
 
 load_dotenv()
 
-session_opts = {
-    "session.type": "cookie",
-    "session.auto": True,
-    "session.validate_key": environ["VALIDATE_KEY"],
-    "session.encrypt_key": environ["ENCRYPT_KEY"],
-    "session.key": "session",
-    "session.crypto_type": "cryptography"
-}
-
-app = SessionMiddleware(bottle.app(), session_opts)
+application = bottle.default_app()
 
 
 @hook('before_request')
@@ -48,9 +38,7 @@ def home():
                     doing=data["doing"],
                     done=data["done"],
                     user=session.get("username", ""),
-                    message=message,
-                    pfp=data["users"].get(session.get("username", ""),
-                                          {"pfp": False})["pfp"])
+                    message=message)
 
 
 @post('/move/<id:int>/<direction>')
@@ -135,10 +123,17 @@ def error404(error):
 
 
 if __name__ == "__main__":
-    if (len(argv) < 2):
-        print("Missing data path")
-        exit()
-    data_path = argv[1]
+    session_opts = {
+        "session.type": "cookie",
+        "session.auto": True,
+        "session.validate_key": environ["VALIDATE_KEY"],
+        "session.encrypt_key": environ["ENCRYPT_KEY"],
+        "session.key": "session",
+        "session.crypto_type": "cryptography"
+    }
+
+    app = SessionMiddleware(application, session_opts)
+    data_path = environ["DATA_PATH"]
     run(app=app,
         host='0.0.0.0',
         port=6900,

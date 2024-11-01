@@ -22,9 +22,7 @@
                 <button id="toggle_dark" onclick="toggle_dark()">🌙</button>
                 % if user:
                     <h3>${user}</h3>
-                    % if pfp:
-                        <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
-                    % endif
+                    <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
                 % else:
                     <a onclick="show_popup('signup-box')">Sign Up</a>
                     <a onclick="show_popup('login-box')">Log in</a>
@@ -67,6 +65,12 @@
                     <form method="POST" action="/signup">
                         <input type="text" name="username" placeholder="Username" autofocus required>
                         <input type="password" name="password" placeholder="Password" required>
+                        <span style="display: inline;">
+                            <input type="button" value="Choose pfp"
+                                onclick="document.getElementById('choose_pfp').click();"/>
+                            <span>pfp</span>
+                        </span>
+                        <input type="file" id="choose_pfp" style="display:none;" name="pfp" required/>
                         <input type="submit" value="Sign Up">
                     </form>
                 </div>
