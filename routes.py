@@ -18,6 +18,7 @@ from bottle import (run,
 load_dotenv()
 
 application = bottle.default_app()
+data_path = environ["DATA_PATH"]
 
 
 @hook('before_request')
@@ -133,7 +134,6 @@ if __name__ == "__main__":
     }
 
     app = SessionMiddleware(application, session_opts)
-    data_path = environ["DATA_PATH"]
     run(app=app,
         host='0.0.0.0',
         port=6900,
