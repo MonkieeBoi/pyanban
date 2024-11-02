@@ -1,79 +1,95 @@
+:root {
+    --nord00: #2e3440;
+    --nord01: #3b4252;
+    --nord02: #434c5e;
+    --nord03: #4c566a;
+    --nord04: #d8dee9;
+    --nord05: #e5e9f0;
+    --nord06: #eceff4;
+    --nord07: #8fbcbb;
+    --nord08: #88c0d0;
+    --nord09: #81a1c1;
+    --nord10: #5e81ac;
+    --nord11: #bf616a;
+    --nord12: #d08770;
+    --nord13: #ebcb8b;
+    --nord14: #a3be8c;
+    --nord15: #b48ead;
+    --login-button-bg: var(--nord09);
+    --login-button-hover-bg: var(--nord08);
+    --popup-bg: #2e3440b3;
+}
+
 @media (prefers-color-scheme: light) {
     :root {
-        --bg: #eceff4;
-        --text-color: black;
-        --list-bg: #d8dee9;
-        --item-bg: #eceff4;
-        --bar-bg: #d8dee9;
-        --button-bg: #d8dee9;
-        --todo: #a3be8c;
-        --doing: #ebcb8b;
-        --done: #b48ead;
-        --message-bg: #bf616a;
-        --popup-bg: #d8dee9;
-        --login-box-bg: #eceff4;
-        --form-bg: #eceff4;
+        --bg: var(--nord05);
+        --text-color: var(--nord00);
+        --list-bg: var(--nord04);
+        --item-bg: var(--nord06);
+        --bar-bg: var(--nord04);
+        --button-bg: var(--nord04);
+        --todo: var(--nord14);
+        --doing: var(--nord13);
+        --done: var(--nord15);
+        --message-bg: var(--nord11);
+        --login-box-bg: var(--nord06);
+        --form-bg: var(--nord06);
         --form-placeholder-fg: #434c5eb9;
-        --login-button-bg: #81a1c1;
-        --login-button-hover-bg: #88c0d0;
+        --choose-bg: var(--nord06);
+        --choose-hover-bg: var(--nord05);
     }
 }
 
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg: #4c566a;
-        --text-color: white;
-        --list-bg: #3b4252;
-        --item-bg: #434c5e;
-        --bar-bg: #2e3440;
-        --button-bg: #3b4252;
-        --todo: #a3be8c;
-        --doing: #ebcb8b;
-        --done: #b48ead;
-        --message-bg: #bf616a;
-        --popup-bg: #2e3440b3;
-        --login-box-bg: #3b4252;
-        --form-bg: #434c5e;
+        --bg: var(--nord03);
+        --text-color: var(--nord06);
+        --list-bg: var(--nord01);
+        --item-bg: var(--nord02);
+        --bar-bg: var(--nord00);
+        --button-bg: var(--nord01);
+        --todo: var(--nord14);
+        --doing: var(--nord13);
+        --done: var(--nord15);
+        --message-bg: var(--nord11);
+        --login-box-bg: var(--nord01);
+        --form-bg: var(--nord02);
         --form-placeholder-fg: #d8dee9b9;
-        --login-button-bg: #81a1c1;
-        --login-button-hover-bg: #88c0d0;
+        --choose-bg: var(--nord02);
+        --choose-hover-bg: var(--nord03);
     }
 }
 
 .light-mode {
-    --bg: #eceff4;
-    --text-color: black;
-    --list-bg: #d8dee9;
-    --item-bg: #eceff4;
-    --bar-bg: #d8dee9;
-    --button-bg: #d8dee9;
-    --todo: #a3be8c;
-    --doing: #ebcb8b;
-    --done: #b48ead;
-    --popup-bg: #d8dee9b3;
-    --message-bg: #bf616a;
-    --login-box-bg: #eceff4;
-    --form-bg: #d8dee9;
+    --bg: var(--nord05);
+    --text-color: var(--nord00);
+    --list-bg: var(--nord04);
+    --item-bg: var(--nord06);
+    --bar-bg: var(--nord04);
+    --button-bg: var(--nord04);
+    --todo: var(--nord14);
+    --doing: var(--nord13);
+    --done: var(--nord15);
+    --message-bg: var(--nord11);
+    --login-box-bg: var(--nord04);
+    --form-bg: var(--nord06);
     --form-placeholder-fg: #434c5eb9;
-    --login-button-bg: #81a1c1;
-    --login-button-hover-bg: #88c0d0;
+    --choose-bg: var(--nord06);
+    --choose-hover-bg: var(--nord05);
 }
 
 .dark-mode {
-    --bg: #4c566a;
-    --text-color: white;
-    --list-bg: #3b4252;
-    --item-bg: #434c5e;
-    --bar-bg: #2e3440;
-    --button-bg: #3b4252;
-    --todo: #a3be8c;
-    --doing: #ebcb8b;
-    --done: #b48ead;
-    --popup-bg: #2e3440b3;
-    --message-bg: #bf616a;
-    --login-box-bg: #3b4252;
-    --form-bg: #434c5e;
+    --bg: var(--nord03);
+    --text-color: var(--nord06);
+    --list-bg: var(--nord01);
+    --item-bg: var(--nord02);
+    --bar-bg: var(--nord00);
+    --button-bg: var(--nord01);
+    --todo: var(--nord14);
+    --doing: var(--nord13);
+    --done: var(--nord15);
+    --message-bg: var(--nord11);
+    --login-box-bg: var(--nord01);
+    --form-bg: var(--nord02);
     --form-placeholder-fg: #d8dee9b9;
-    --login-button-bg: #81a1c1;
-    --login-button-hover-bg: #88c0d0;
 }

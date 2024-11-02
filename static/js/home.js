@@ -90,6 +90,25 @@ window.onload = () => {
         document.getElementById("toggle_dark").textContent = "☀️"
     }
 
+    let chooser = document.getElementById("choose-pfp");
+    chooser.onchange = () => {
+        let preview = document.getElementById("pfp-preview");
+        preview.classList.add("hidden");
+        if (chooser.files.length > 1) {
+            alert("Only one file should be uploaded!");
+            chooser.value = "";
+        } else if (chooser.files[0].size > 1048576) {
+            alert("Max file size 1MB!");
+            chooser.value = "";
+        } else {
+            preview.classList.remove("hidden");
+            preview.src = URL.createObjectURL(chooser.files[0]);
+            preview.onload = function() {
+                URL.revokeObjectURL(preview.src);
+            }
+        }
+    }
+
     add_countdown();
 }
 
