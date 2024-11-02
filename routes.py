@@ -116,7 +116,6 @@ def signup():
     if not pfp:
         request.session["message"] = "Missing pfp!"
         return redirect("/")
-    print(pfp.filename)
 
     users = load_data(data_path)["users"]
 
@@ -127,6 +126,7 @@ def signup():
     name, ext = path.splitext(pfp.filename)
     add_user(data_path, username, password, ext)
     pfp.save(f"static/images/pfps/{username}{ext}", overwrite=True)
+    request.body.close()
 
     return redirect("/")
 
