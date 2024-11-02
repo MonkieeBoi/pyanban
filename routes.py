@@ -1,4 +1,4 @@
-from os import environ
+from os import environ, path
 from data import load_data, move_item, add_user, add_item
 from beaker.middleware import SessionMiddleware
 from dotenv import load_dotenv
@@ -39,7 +39,8 @@ def home():
                     doing=data["doing"],
                     done=data["done"],
                     user=session.get("username", ""),
-                    message=message)
+                    message=message,
+                    users=data["users"])
 
 
 @post('/move/<id:int>/<direction>')
@@ -123,8 +124,9 @@ def signup():
         request.session["message"] = "Username has been taken"
         return redirect("/")
     request.session["username"] = username
-    add_user(data_path, username, password)
-    pfp.save(f"static/images/pfps/{username}", overwrite=True)
+    name, ext = path.splitext(pfp.filename)
+    add_user(data_path, username, password, ext)
+    pfp.save(f"static/images/pfps/{username}{ext}", overwrite=True)
 
     return redirect("/")
 

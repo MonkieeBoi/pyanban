@@ -21,7 +21,7 @@
                 <button id="toggle_dark" onclick="toggle_dark()">🌙</button>
                 % if user:
                     <h3>${user}</h3>
-                    <img class="nav-pfp" src="/static/images/pfps/${user}" alt="pfp">
+                    <img class="nav-pfp" src="/static/images/pfps/${user}${users[user]['ext']}" alt="pfp">
                 % else:
                     <a onclick="show_popup('signup-box')">Sign Up</a>
                     <a onclick="show_popup('login-box')">Log in</a>
@@ -98,7 +98,7 @@
                 <h4 class="item-due">Due: loading...</h4>
             </div>
             <div class="item-right">
-                <img class="item-pfp" src="/static/images/pfps/${val['owner']}" alt="pfp">
+                <img class="item-pfp" src="/static/images/pfps/${val['owner']}${users[val['owner']]['ext']}" alt="pfp">
                 % if user == val["owner"]:
                     <button class="arrow-button" onclick="move_left(this)"><</button>
                     <button class="arrow-button" onclick="move_right(this)">></button>
