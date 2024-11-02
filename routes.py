@@ -99,16 +99,32 @@ def addtask():
 @post('/signup')
 def signup():
     username = request.forms.get("username")
+    pfp = request.files.get("pfp")
     password = sha512(request.forms.get("password").encode())
     password = password.hexdigest()
+
+    # if not (username and data and request.forms.get("password", None)):
+    #     request.session["message"] = "Missing field!"
+    #     return redirect("/")
+    if not username:
+        request.session["message"] = "Missing username!"
+        return redirect("/")
+    if not request.forms.get("password", None):
+        request.session["message"] = "Missing pass!"
+        return redirect("/")
+    if not pfp:
+        request.session["message"] = "Missing pfp!"
+        return redirect("/")
+    print(pfp.filename)
 
     users = load_data(data_path)["users"]
 
     if username in users:
         request.session["message"] = "Username has been taken"
-    else:
-        request.session["username"] = username
-        add_user(data_path, username, password)
+        return redirect("/")
+    request.session["username"] = username
+    add_user(data_path, username, password)
+    pfp.save(f"static/images/pfps/{username}", overwrite=True)
 
     return redirect("/")
 
