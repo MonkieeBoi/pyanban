@@ -178,15 +178,16 @@ nav {
     align-content: center;
     justify-content: space-between;
     text-align: center;
-    padding: 20px;
+    padding: 30px;
 }
 
-#popup > div > form {
+#popup form {
     display: flex;
     flex-direction: column;
     align-content: center;
     gap: 10px;
     width: 90%;
+    flex-wrap: wrap;
 }
 
 #popup input {
@@ -194,6 +195,8 @@ nav {
     padding: 10px;
     border: none;
     background-color: var(--form-bg);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 #pfp-choose {
@@ -201,6 +204,7 @@ nav {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    width: min-content;
 }
 
 #popup #pfp-button {

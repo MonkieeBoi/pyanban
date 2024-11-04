@@ -104,17 +104,8 @@ def signup():
     password = sha512(request.forms.get("password").encode())
     password = password.hexdigest()
 
-    # if not (username and data and request.forms.get("password", None)):
-    #     request.session["message"] = "Missing field!"
-    #     return redirect("/")
-    if not username:
-        request.session["message"] = "Missing username!"
-        return redirect("/")
-    if not request.forms.get("password", None):
-        request.session["message"] = "Missing pass!"
-        return redirect("/")
-    if not pfp:
-        request.session["message"] = "Missing pfp!"
+    if not (username and pfp and request.forms.get("password", None)):
+        request.session["message"] = "Missing field!"
         return redirect("/")
 
     users = load_data(data_path)["users"]
@@ -145,6 +136,7 @@ if __name__ == "__main__":
     session_opts = {
         "session.type": "cookie",
         "session.auto": True,
+        "session.cookie_expires": False,
         "session.validate_key": environ["VALIDATE_KEY"],
         "session.encrypt_key": environ["ENCRYPT_KEY"],
         "session.key": "session",
