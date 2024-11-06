@@ -145,8 +145,11 @@ if __name__ == "__main__":
     }
 
     app = SessionMiddleware(application, session_opts)
-    run(app=app,
-        host='0.0.0.0',
-        port=6900,
-        debug=True,
-        reloader=True)
+    if environ.get("DEBUG", 0) == 1:
+        run(app=app,
+            host='0.0.0.0',
+            port=6900,
+            debug=True,
+            reloader=True)
+    else:
+        run(app=app, host='0.0.0.0', port=6900)
