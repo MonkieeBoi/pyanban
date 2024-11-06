@@ -58,7 +58,8 @@ def move_request(id, direction):
         redirect("/")
 
     to = move_item(data_path, id, direction == "left")
-    response.status = "200 " + to
+    response.content_type = "text/plain"
+    return to
 
 
 @post('/login')

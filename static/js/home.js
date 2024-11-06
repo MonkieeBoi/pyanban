@@ -11,28 +11,23 @@ function toggle_dark() {
     }
 }
 
-function move_right(e) {
+function move(e, dir) {
     let item = e.parentElement.parentElement;
 
-    fetch(`/move/${item.id.split("-")[1]}/right`, {method: "POST"})
-        .then((res) => {
-            let newParent = document.getElementById(`${res.statusText}-box`)
-            if (res.ok) {
-                newParent.appendChild(item);
-            }
+    fetch(`/move/${item.id.split("-")[1]}/${dir}`, {method: "POST"})
+        .then((res) => res.text())
+        .then((text) => {
+            let newParent = document.getElementById(`${text}-box`)
+            newParent.appendChild(item);
         });
 }
 
-function move_left(e) {
-    let item = e.parentElement.parentElement;
+function move_right(e) {
+    move(e, "right")
+}
 
-    fetch(`/move/${item.id.split("-")[1]}/left`, {method: "POST"})
-        .then((res) => {
-            let newParent = document.getElementById(`${res.statusText}-box`)
-            if (res.ok) {
-                newParent.appendChild(item);
-            }
-        });
+function move_left(e) {
+    move(e, "left")
 }
 
 
