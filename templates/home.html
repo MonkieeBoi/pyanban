@@ -32,7 +32,7 @@
             <ol class="list" id="todo-box">
                 <div class="list-title">
                     <h2>To do</h2>
-                    <h2 id="add_button" onclick="document.getElementById('popup').classList.toggle('hidden')">+</h2>
+                    <h2 id="add_button" onclick="show_popup('add-item-box')">+</h2>
                 </div>
                 ${add_items(todos)}
             </ol>
@@ -49,7 +49,7 @@
                 ${add_items(done)}
             </ol>
         </section>
-        <div class="hidden" id="popup" onclick="this.classList.toggle('hidden')">
+        <div class="hidden" id="popup" onclick="close_popup()">
             % if not user:
                 <div id="login-box">
                     <h2>Log in</h2>
@@ -84,6 +84,20 @@
                         <input type="submit" value="Add">
                     </form>
                 </div>
+                <div id="edit-box" class="hidden">
+                    <h2>Edit Item</h2>
+                    <form id="edit-form" method="POST" action="/edit">
+                        <input type="text" name="description" placeholder="Description of task" autofocus required>
+                        <input type="date" name="date" required>
+                        <input type="time" name="time" value="23:59" required>
+                        <input type="text" class="hidden" name="id" value="" required>
+                        <span id="edit-button-box">
+                            <input class="delete-button" type="button" value="Delete" onclick="del_item()">
+                            <input class="cancel-button" type="button" value="Cancel" onclick="close_popup()">
+                            <input type="submit" value="Update">
+                        </span>
+                    </form>
+                </div>
             % endif
         </div>
     </body>
@@ -92,7 +106,11 @@
 <%def name="add_items(item_dict)">
     % for key, val in item_dict.items():
         <li class="list-item" id="item-${key}">
+            % if user == val["owner"]:
+            <div class="item-left" onclick="edit('${key}')">
+            % else:
             <div class="item-left">
+            % endif
                 <h3 class="item-text">${val["text"]}</h3>
                 <h4 class="item-date">${val["date"]}</h4>
                 <h4 class="item-due">Due: loading...</h4>

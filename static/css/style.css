@@ -167,7 +167,7 @@ nav {
     box-sizing: border-box;
 }
 
-#login-box, #signup-box, #add-item-box {
+#popup > div {
     height: 270px;
     width: 260px;
     background: var(--login-box-bg);
@@ -197,6 +197,25 @@ nav {
     background-color: var(--form-bg);
     width: 100%;
     box-sizing: border-box;
+}
+
+#edit-button-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#edit-button-box > input {
+    width: 32%;
+    padding: 8px;
+}
+
+.delete-button {
+    background-color: var(--delete-button-bg) !important;
+}
+
+.cancel-button {
+    background-color: var(--cancel-button-bg) !important;
 }
 
 #pfp-choose {

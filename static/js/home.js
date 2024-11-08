@@ -33,47 +33,6 @@ function move_left(e) {
 
 intervals = new Set();
 
-function add_countdown() {
-    document.querySelectorAll(".item-due").forEach(element => {
-        interval = setInterval(() => {
-            if (element.parentElement.parentElement.parentElement.id == "done-box") {
-                element.innerHTML = "Due: Done";
-                return;
-            }
-
-            let dueDate = element.dataset.date;
-            if (!("date" in element.dataset)) {
-                let date, time;
-                [date, time] = element.parentElement.querySelector(".item-date").textContent.split(" ");
-                date = date.split("/");
-                time = time.split(":");
-                dueDate = new Date(date[2], date[1] - 1, date[0], time[0], time[1]).getTime();
-                element.dataset.date = dueDate;
-            }
-            let now = new Date().getTime();
-
-            let distance = dueDate - now;
-            distance = Math.floor(distance / 1000);
-
-            let days = Math.floor(distance / (60 * 60 * 24));
-            let hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
-            let minutes = Math.floor((distance % (60 * 60)) / (60));
-            let seconds = Math.floor((distance % (60)));
-
-            element.innerHTML = "Due: "
-                + (days > 0 ? days + "d " : "")
-                + (hours > 0 ? hours + "h " : "")
-                + (minutes > 0 ? minutes + "m " : "")
-                + (seconds > 0 ? seconds + "s " : "");
-
-            if (distance < 0) {
-                element.innerHTML = "OVERDUE!!";
-            }
-        }, 1000);
-        intervals.add(interval);
-    });
-}
-
 window.onload = () => {
     document.getElementById("popup").childNodes.forEach((child) => {
         child.onclick = (event) => {
@@ -116,10 +75,100 @@ function clear_intervals() {
     }
 }
 
-function show_popup(id) {
-    if (document.getElementById(id).classList.contains("hidden")) {
-        document.getElementById('login-box').classList.toggle('hidden')
-        document.getElementById("signup-box").classList.toggle("hidden")
-    }
+function close_popup() {
     document.getElementById('popup').classList.toggle('hidden')
+}
+
+function show_popup(id) {
+    if (document.getElementById(id) == null) {
+        document.getElementById('popup').classList.toggle('hidden')
+        return;
+    }
+
+    for (child of document.getElementById('popup').children) {
+        child.classList.add("hidden")
+    }
+
+    document.getElementById(id).classList.remove("hidden");
+    document.getElementById('popup').classList.toggle('hidden')
+}
+
+function edit(id) {
+    show_popup("edit-box");
+    let par = document.getElementById(`item-${id}`);
+    let desc = par.querySelector(".item-text").textContent;
+
+    let date, time;
+    [date, time] = par.querySelector(".item-date").textContent.split(" ");
+    date = date.split("/");
+    dueDate = new Date(date[2], date[1] - 1, date[0], time[0], time[1]);
+
+    let form = document.getElementById("edit-form")
+    let descInput = form.elements["description"]
+    let dateInput = form.elements["date"]
+    let timeInput = form.elements["time"]
+    let idInput = form.elements["id"]
+    descInput.value = desc;
+    dateInput.valueAsDate = new Date(dueDate.getTime() - dueDate.getTimezoneOffset() * 60000);
+    timeInput.value = time;
+    idInput.value = id;
+}
+
+function del_item() {
+    let form = document.getElementById("edit-form")
+    let id = form.elements["id"].value;
+
+    fetch(`/delete/${id}`, {method: "POST"})
+        .then((res) => res.text())
+        .then((text) => {
+            if (text == "deleted") {
+                close_popup();
+                document.querySelector(`#item-${id}`).remove();
+                clear_intervals();
+                add_countdown();
+            } else {
+                alert("Failed to delete!");
+            }
+        });
+}
+
+function add_countdown() {
+    document.querySelectorAll(".item-due").forEach(element => {
+        interval = setInterval(() => {
+            if (element.parentElement.parentElement.parentElement.id == "done-box") {
+                element.innerHTML = "Due: Done";
+                return;
+            }
+
+            let dueDate = element.dataset.date;
+            if (!("date" in element.dataset)) {
+                let date, time;
+                [date, time] = element.parentElement.querySelector(".item-date").textContent.split(" ");
+                date = date.split("/");
+                time = time.split(":");
+                dueDate = new Date(date[2], date[1] - 1, date[0], time[0], time[1]).getTime();
+                element.dataset.date = dueDate;
+            }
+            let now = new Date().getTime();
+
+            let distance = dueDate - now;
+            distance = Math.floor(distance / 1000);
+
+            let days = Math.floor(distance / (60 * 60 * 24));
+            let hours = Math.floor((distance % (60 * 60 * 24)) / (60 * 60));
+            let minutes = Math.floor((distance % (60 * 60)) / (60));
+            let seconds = Math.floor((distance % (60)));
+
+            element.innerHTML = "Due: "
+                + (days > 0 ? days + "d " : "")
+                + (hours > 0 ? hours + "h " : "")
+                + (minutes > 0 ? minutes + "m " : "")
+                + (seconds > 0 ? seconds + "s " : "");
+
+            if (distance < 0) {
+                element.innerHTML = "OVERDUE!!";
+            }
+        }, 1000);
+        intervals.add(interval);
+    });
 }

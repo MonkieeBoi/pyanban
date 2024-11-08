@@ -1,9 +1,15 @@
 from os import environ, path
-from data import load_data, move_item, add_user, add_item
 from beaker.middleware import SessionMiddleware
 from dotenv import load_dotenv
 from hashlib import sha512
 import bottle
+from data import (load_data,
+                  move_item,
+                  add_user,
+                  add_item,
+                  get_item,
+                  edit_item,
+                  del_item)
 from bottle import (run,
                     static_file,
                     response,
@@ -98,6 +104,51 @@ def addtask():
     return redirect('/')
 
 
+@post('/edit')
+def edit_task():
+    if "username" not in request.session:
+        request.session["message"] = "Not logged in"
+        return redirect('/')
+
+    item_id = request.forms.get("id")
+    item = get_item(data_path,  item_id)
+
+    if item is None:
+        request.session["message"] = "No such item"
+        return redirect('/')
+
+    if request.session["username"] != item["owner"]:
+        request.session["message"] = "Not item owner"
+        return redirect('/')
+
+    text = request.forms.get("description")
+    date = request.forms.get("date")
+    time = request.forms.get("time")
+
+    edit_item(data_path, item_id, text,
+              ("/".join(date.split("-")[::-1]) + " " + time))
+    return redirect('/')
+
+
+@post('/delete/<id:int>')
+def del_task(id):
+    id = str(id)
+    if "username" not in request.session:
+        return
+
+    item = get_item(data_path, id)
+
+    if item is None:
+        return
+
+    if request.session["username"] != item["owner"]:
+        return
+
+    del_item(data_path, id)
+    response.content_type = "text/plain"
+    return "deleted"
+
+
 @post('/signup')
 def signup():
     username = request.forms.get("username")
@@ -145,7 +196,7 @@ if __name__ == "__main__":
     }
 
     app = SessionMiddleware(application, session_opts)
-    if environ.get("DEBUG", 0) == 1:
+    if environ.get("DEBUG", 0) == "1":
         run(app=app,
             host='0.0.0.0',
             port=6900,

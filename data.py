@@ -11,17 +11,15 @@ def load_data(path) -> dict:
 
 def move_item(path, item_id, left):
     data = load_data(path)
-    sfrom = ""
+    sfrom = get_section(data, item_id)
     sto = ""
-    if (item_id in data["todo"]):
-        sfrom = "todo"
-        sto = "todo" if left else "doing"
-    elif (item_id in data["doing"]):
-        sfrom = "doing"
-        sto = "todo" if left else "done"
-    elif (item_id in data["done"]):
-        sfrom = "done"
-        sto = "doing" if left else "done"
+    match sfrom:
+        case "todo":
+            sto = "todo" if left else "doing"
+        case "doing":
+            sto = "todo" if left else "done"
+        case "done":
+            sto = "doing" if left else "done"
 
     if sfrom == sto:
         return sto
@@ -36,6 +34,45 @@ def add_item(path, section, text, due, owner):
     item = {"text": text, "date": due, "owner": owner}
     data["index"] += 1
     data[section][data["index"]] = item
+    save_data(path, data)
+
+
+def get_item(path, item_id):
+    data = load_data(path)
+    section = get_section(data, item_id)
+    if section is None:
+        return None
+    return data[section][item_id]
+
+
+def get_section(data, item_id):
+    if (item_id in data["todo"]):
+        return "todo"
+    if (item_id in data["doing"]):
+        return "doing"
+    if (item_id in data["done"]):
+        return "done"
+    return None
+
+
+def edit_item(path, item_id, text, due):
+    data = load_data(path)
+    section = get_section(data, item_id)
+    if section is None:
+        return None
+
+    data[section][item_id]["text"] = text
+    data[section][item_id]["date"] = due
+
+    save_data(path, data)
+
+
+def del_item(path, item_id):
+    data = load_data(path)
+    section = get_section(data, item_id)
+    if section is None:
+        return
+    data[section].pop(item_id)
     save_data(path, data)
 
 

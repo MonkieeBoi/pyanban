@@ -16,6 +16,7 @@
     --nord14: #a3be8c;
     --nord15: #b48ead;
     --login-button-bg: var(--nord09);
+    --delete-button-bg: var(--nord11);
     --login-button-hover-bg: var(--nord08);
     --popup-bg: #2e3440b3;
 }
@@ -57,6 +58,7 @@
         --form-placeholder-fg: #d8dee9b9;
         --choose-bg: var(--nord02);
         --choose-hover-bg: var(--nord03);
+        --cancel-button-bg: var(--nord03);
     }
 }
 
