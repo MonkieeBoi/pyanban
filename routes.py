@@ -151,6 +151,10 @@ def del_task(id):
 
 @post('/signup')
 def signup():
+    if environ.get("DISABLE_SIGNUP", 0) == "1":
+        request.session["message"] = "Signup disabled, contact administrator"
+        return redirect("/")
+
     username = request.forms.get("username")
     pfp = request.files.get("pfp")
     password = sha512(request.forms.get("password").encode())
