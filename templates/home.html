@@ -105,7 +105,7 @@
 </html>
 
 <%def name="add_items(item_dict)">
-    % for key, val in item_dict.items():
+    % for key, val in sorted(item_dict.items(), key=lambda item: f"{'/'.join(item[1]['date'].split(' ')[0].split('/')[::-1])} {item[1]['date'].split(' ')[1]}"):
         <li class="list-item" id="item-${key}">
             % if user == val["owner"]:
             <div class="item-left" onclick="edit('${key}')">
