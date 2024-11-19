@@ -25,6 +25,17 @@ load_dotenv()
 
 application = bottle.default_app()
 data_path = environ["DATA_PATH"]
+session_opts = {
+    "session.type": "cookie",
+    "session.auto": True,
+    "session.cookie_expires": False,
+    "session.validate_key": environ["VALIDATE_KEY"],
+    "session.encrypt_key": environ["ENCRYPT_KEY"],
+    "session.key": "session",
+    "session.crypto_type": "cryptography"
+}
+
+app = SessionMiddleware(application, session_opts)
 
 
 @hook('before_request')
@@ -189,17 +200,6 @@ def error404(error):
 
 
 if __name__ == "__main__":
-    session_opts = {
-        "session.type": "cookie",
-        "session.auto": True,
-        "session.cookie_expires": False,
-        "session.validate_key": environ["VALIDATE_KEY"],
-        "session.encrypt_key": environ["ENCRYPT_KEY"],
-        "session.key": "session",
-        "session.crypto_type": "cryptography"
-    }
-
-    app = SessionMiddleware(application, session_opts)
     if environ.get("DEBUG", 0) == "1":
         run(app=app,
             host='0.0.0.0',
