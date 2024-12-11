@@ -51,6 +51,11 @@ def home():
     session["message"] = ""
     if session.get("username", "") not in data["users"]:
         session["username"] = ""
+
+    if session["username"] == "":
+        return template("templates/home.html", todos={}, doing={}, done={},
+                        user="", message=message, users={})
+
     return template("templates/home.html",
                     todos=data["todo"],
                     doing=data["doing"],
