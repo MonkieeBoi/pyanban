@@ -99,6 +99,32 @@ nav {
     margin-top: 5px;
 }
 
+#filter-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+#filter-x-icon {
+    width: 20px;
+    height: 20px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.list-title-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5px;
+}
+
+#add_button {
+    line-height: 20px;
+    cursor: pointer;
+}
+
 .list {
     background: var(--list-bg);
     list-style: none;

@@ -132,6 +132,19 @@ function del_item() {
         });
 }
 
+function filter_owned() {
+    let filter_i = document.getElementById("filter-icon");
+    let filter_i_x = document.getElementById("filter-x-icon");
+
+    let items = document.querySelectorAll(".unowned-item");
+    for (let item of items) {
+        item.classList.toggle("hidden")
+    }
+
+    filter_i.classList.toggle("hidden");
+    filter_i_x.classList.toggle("hidden");
+}
+
 function add_countdown() {
     document.querySelectorAll(".item-due").forEach(element => {
         interval = setInterval(() => {

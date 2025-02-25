@@ -34,7 +34,13 @@
             <ol class="list" id="todo-box">
                 <div class="list-title">
                     <h2>To do</h2>
-                    <h2 id="add_button" onclick="show_popup('add-item-box')">+</h2>
+                    <div class="list-title-left">
+                        <div id="filter_button" onclick="filter_owned()">
+                            <img id="filter-icon" src="/static/images/svg/filter.svg">
+                            <img class="hidden" id="filter-x-icon" src="/static/images/svg/filterx.svg">
+                        </div>
+                        <h2 id="add_button" onclick="show_popup('add-item-box')">+</h2>
+                    </div>
                 </div>
                 ${add_items(todos)}
             </ol>
@@ -107,7 +113,11 @@
 
 <%def name="add_items(item_dict)">
     % for key, val in sorted(item_dict.items(), key=lambda item: f"{'/'.join(item[1]['date'].split(' ')[0].split('/')[::-1])} {item[1]['date'].split(' ')[1]}"):
-        <li class="list-item" id="item-${key}">
+        % if user == val["owner"]:
+            <li class="list-item" id="item-${key}">
+        % else:
+            <li class="list-item unowned-item" id="item-${key}">
+        % endif
             % if user == val["owner"]:
             <div class="item-left" onclick="edit('${key}')">
             % else:
