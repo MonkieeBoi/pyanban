@@ -279,3 +279,9 @@ nav {
 #popup input[type=submit]:hover {
     background-color: var(--login-button-hover-bg);
 }
+
+@media only screen and (min-width: 900px) {
+    ::-webkit-scrollbar{
+        display: none;
+    }
+}
