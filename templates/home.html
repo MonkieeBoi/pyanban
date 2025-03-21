@@ -128,10 +128,16 @@
                 <h4 class="item-due">Due: loading...</h4>
             </div>
             <div class="item-right">
-                <img class="item-pfp" src="/static/images/pfps/${val['owner']}${users[val['owner']]['ext']}" alt="pfp">
+                % if val['owner'] in users:
+                    <img class="item-pfp" src="/static/images/pfps/${val['owner']}${users[val['owner']]['ext']}" alt="pfp">
+                % endif
                 % if user == val["owner"]:
-                    <button class="arrow-button" onclick="move_left(this)"><</button>
-                    <button class="arrow-button" onclick="move_right(this)">></button>
+                    <button class="arrow-button" onclick="move_left(this)">
+                        <img class="chevron-icon" src="/static/images/svg/chevron-left.svg">
+                    </button>
+                    <button class="arrow-button" onclick="move_right(this)">
+                        <img class="chevron-icon" src="/static/images/svg/chevron-right.svg">
+                    </button>
                 % endif
             </div>
         </li>

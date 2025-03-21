@@ -104,6 +104,7 @@ nav {
     height: 20px;
     margin-top: 10px;
     cursor: pointer;
+    filter: var(--icon-filter);
 }
 
 #filter-x-icon {
@@ -111,6 +112,7 @@ nav {
     height: 20px;
     margin-top: 10px;
     cursor: pointer;
+    filter: var(--icon-filter);
 }
 
 .list-title-left {
@@ -173,6 +175,9 @@ nav {
     height: 100%;
     border: none;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .hidden {
@@ -278,6 +283,12 @@ nav {
 
 #popup input[type=submit]:hover {
     background-color: var(--login-button-hover-bg);
+}
+
+.chevron-icon {
+    width: 16px;
+    height: 16px;
+    filter: var(--icon-filter);
 }
 
 @media only screen and (min-width: 900px) {
