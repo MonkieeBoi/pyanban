@@ -11,7 +11,7 @@ h1 {
 }
 
 h2, h3, h4  {
-    margin: 5px;
+    margin: 3px;
 }
 
 body {
@@ -150,6 +150,8 @@ nav {
 
 .item-left {
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .item-right {
@@ -178,6 +180,7 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 8px 0;
 }
 
 .hidden {
@@ -289,6 +292,10 @@ nav {
     width: 16px;
     height: 16px;
     filter: var(--icon-filter);
+}
+
+.item-text {
+    flex: 1;
 }
 
 @media only screen and (min-width: 900px) {
