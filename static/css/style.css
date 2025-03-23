@@ -171,10 +171,19 @@ nav {
     max-height: 40px;
 }
 
+#todo-box .arrow-button-left {
+    display: none;
+}
+
+#done-box .arrow-button-right {
+    display: none;
+}
+
 .arrow-button {
     background: var(--button-bg);
     width: 30px;
     height: 100%;
+    max-height: 45px;
     border: none;
     cursor: pointer;
     display: flex;
